@@ -69,7 +69,6 @@ textarea:focus-visible {
 
 .main__texto,
 .main__botones button:nth-child(1),
-.main__botones button:nth-child(2):hover,
 .aside {
     background-color: var(--gris-claro);
 }
@@ -126,6 +125,15 @@ textarea:focus-visible {
     resize: none;
     border: none;
     border-radius: 3.2rem;
+}
+
+.main__mensaje-error {
+    display: none;
+    font-size: 1.5rem;
+    color: #971e1ef0;
+    border: .1rem solid #971e1ef0;
+    text-align: center;
+    padding: 1rem 0;
 }
 
 .main__acciones {
@@ -194,6 +202,10 @@ textarea:focus-visible {
         border-radius: 3.2rem;
     }
 }
+.aside__texto {
+    display: none;
+}
+
 .aside__img {
     display: none;
 }

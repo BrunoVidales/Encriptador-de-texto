@@ -15,17 +15,18 @@
     <main class="main contenedor">
         <div class="main__ingresar">
             <textarea class="main__texto" id="mensaje" placeholder="Ingrese el texto aquí"></textarea>
-
+            <p class="main__mensaje-error">El mensaje no puede estar vacío, ni contener mayúsculas ni acentos.</p>
             <div class="main__acciones">
-                <p>Solo letras minúsculas y sin acentos</p>
+                <p class="main__error">Solo letras minúsculas y sin acentos</p>
                 <div class="main__botones">
                     <button id="encriptar">Encriptar</button>
-                    <button id="desencriptar">Desencriptar</button>
+                    <button disabled id="desencriptar">Desencriptar</button>
                 </div>
             </div>
         </div>
         
         <aside class="aside">
+            <p class="aside__texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita, itaque magnam sit eligendi aut.</p>
             <div class="aside__img">
                 <img src="img/Muñeco.png" alt="Imagen de muñeco">
             </div>
@@ -33,7 +34,7 @@
             <p>Ingresa el texto que desees encriptar o desencriptar.</p>   
        </aside>
     </main>
-
+    
     <footer class="footer"> 
         <div class="contenedor">
             <p class="footer__autor">Desarrollado por <span>Bruno Vidales</span></p>
@@ -44,5 +45,7 @@
             </nav>
         </div>
     </footer>
+
+    <script src="app.js"></script>
 </body>
 </html> 
