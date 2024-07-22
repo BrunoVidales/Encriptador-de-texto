@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
         let regex = /^[a-z0-9 ñ]*$/;
         if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
-            errorMensaje('Error: Solo letras minúsculas y sin acentos.', 'img/astro2.png', '#ff2a2a');
+            errorMensaje('img/astro2.png', 'Error: Solo letras minúsculas y sin acentos.', '#ff2a2a');
             setTimeout(() => {
-                removerErrorMensaje('Solo letras minúsculas y sin acentos', 'img/astro.png', 'var(--primario)');
+                removerErrorMensaje('img/astro.png', 'Solo letras minúsculas y sin acentos', 'var(--primario)');
             }, 3500);
             return;
         };
@@ -99,20 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Funcion error al ingresar texto
-    function errorMensaje(texto, src, color) {
+    function errorMensaje(src, texto, color) {
+        const img = document.querySelector('.aside__img img');
+        img.src = src;
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
         errorParrafo.style.color = color;
-        const img = document.querySelector('.aside__img img');
-        img.src = src;
     }
 
     // Funcion para remover errorMensaje
-    function removerErrorMensaje(texto, src, color) {
+    function removerErrorMensaje(src, texto, color) {
+        const img = document.querySelector('.aside__img img');
+        img.src = src;
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
         errorParrafo.style.color = color;
-        const img = document.querySelector('.aside__img img');
-        img.src = src;
     }
 });
