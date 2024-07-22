@@ -1,60 +1,112 @@
-// Variables
-const botonEncriptar = document.getElementById('encriptar');
-
-// Eventos
 document.addEventListener('DOMContentLoaded', () => {
-    botonEncriptar.addEventListener('click', validarMensaje);
-});
-
-
-// Funciones
-
-// Validación del mensaje
-function validarMensaje() {
-    let mensajeIngresado = document.getElementById('mensaje').value.trim();
+    // Variables
+    const mensajeIngresado = document.querySelector('#mensaje');
+    const botonesMain = document.querySelectorAll('.main__boton');
+    const mensajeRecibido = document.querySelector('.aside__texto');
+    const botonCopiar = document.querySelector('.aside__copiar');
+    const asideInfo = document.querySelector('.aside__info');
+    const cifrado = {
+        a: 'ai',
+        e: 'enter',
+        i: 'imes',
+        o: 'ober',
+        u: 'ufat' 
+    };
     
-    // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
-    let regex = /^([a-z]+\s)*[a-z]+$/;
-    if(!regex.test(mensajeIngresado) || mensajeIngresado === '') {
-        botonEncriptar.setAttribute('disabled', 'true');
-        const parrafo = document.querySelector('.main__mensaje-error');
-        parrafo.style.display = 'block';
-        setTimeout(() => {
-            parrafo.style.display = 'none';
-            botonEncriptar.removeAttribute('disabled');
-        }, 3500);
-        return;
-    } 
+    // Evento
+    botonesMain.forEach(boton =>  {
+        boton.addEventListener('click', (e) => {
+            validarMensaje(e.target);
+        });
+    });
+    botonCopiar.addEventListener('click', copiarMensaje);
 
-    encriptarMensaje(mensajeIngresado);
-}
+    // Funciones
 
-// Encriptar mensaje 
-function encriptarMensaje(mensaje) {
-    let mensajeEncriptado = '';
-    for(let i = 0; i < mensaje.length; i++) {
-        let letra = mensaje[i];
-        switch(letra) {
-            case 'a':
-                mensajeEncriptado += 'ai';
-                break;
-            case 'e':
-                mensajeEncriptado += 'enter';
-                break;
-            case 'i':
-                mensajeEncriptado += 'imes';
-                break;
-            case 'o':
-                mensajeEncriptado += 'ober';
-                break;
-            case 'u':
-                mensajeEncriptado += 'ufat';
-                break;
-            default:
-                mensajeEncriptado += letra;
-                break;
+    // Funcion validar mensaje
+    function validarMensaje(boton) {
+            const errorParrafo = document.querySelector('.main__error');
+            const img = document.querySelector('.aside__img img');
+            const titulo = asideInfo.querySelector('h2');
+            // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
+            let regex = /^[a-z0-9 ñ]*$/;
+            if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
+                boton.setAttribute('disabled', 'true');
+                errorParrafo.textContent = 'Error: Solo letras minúsculas y sin acentos.';
+                errorParrafo.style.color = 'red';
+                img.src = 'img/astro2.png';
+                titulo.textContent = 'Inténtalo de nuevo';
+                setTimeout(() => {
+                    errorParrafo.textContent = 'Solo letras minúsculas y sin acentos';
+                    errorParrafo.style.color = 'var(--primario)';
+                    boton.removeAttribute('disabled');
+                    img.src = 'img/astro.png';
+                    titulo.textContent = 'Ningún mensaje fue encontrado';
+                }, 3500);
+                return;
+            };
+            // Almaceno el mensaje
+            let mensajeGuardado = mensajeIngresado.value;
+
+            // Limpio el textarea luego de encriptar el mensaje
+            mensajeIngresado.value = '';
+            
+            // Obtengo el mensaje en las funciones
+            if(boton.name === 'encriptar') {
+                encriptarMensaje(mensajeGuardado);
+                return;
+            }
+            desecriptarMensaje(mensajeGuardado);
+    };
+
+    // Funcion encriptar mensaje
+    function encriptarMensaje(mensaje) {
+        let mensajeEncriptado = '';
+        mensaje.split('').forEach(letra => {
+            if(Object.keys(cifrado).includes(letra)) {
+                mensajeEncriptado += cifrado[letra];
+                return;
+            } 
+            mensajeEncriptado += letra;
+        });
+        recibirMensaje(mensajeEncriptado);
+    };
+
+    // Funcion desencriptar mensaje
+    function desecriptarMensaje(mensaje) {
+        let mensajeArreglo = mensaje.split('');
+        for(let i = 0; i < mensajeArreglo.length; i++) {
+            if(Object.keys(cifrado).includes(mensajeArreglo[i])) {
+                // Verificar si las letras que siguen a la vocal corresponde con el valor para esa letra en el obj 
+                const valor = cifrado[mensajeArreglo[i]];
+                if(mensajeArreglo.slice(i, i + valor.length).join('') === valor) {
+                    mensajeArreglo.splice(i + 1, valor.length - 1);
+                };
+            };
+        };
+        recibirMensaje(mensajeArreglo.join(''))
+    };
+
+
+    // Funcion recibir mensaje encriptado o desencriptado
+    function recibirMensaje(mensaje) {
+        if(mensaje) {
+            asideInfo.classList.add('d-none');
+            mensajeRecibido.classList.remove('d-none')
+            botonCopiar.classList.remove('d-none');
+            mensajeRecibido.textContent = mensaje;
         }
     }
-    console.log(mensajeEncriptado);
-}
 
+    // Funcion para copiar el mensaje
+    async function copiarMensaje() {
+        try {
+            if(mensajeRecibido.value) {
+                await navigator.clipboard.writeText(mensajeRecibido.value);
+            };
+        } catch (error) {
+            console.log('el texto no pudo ser copiado');
+        };
+    };
+    
+});

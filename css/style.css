@@ -16,18 +16,17 @@ html {
 :root {
     --primario: #F6F6F6;
     --fondo: #161616;
-    --gris-oscuro: #1C1C1C;
     --gris-claro: #2C2C2C;   
-    
     --fuente: "Inter", sans-serif;
 }
 
 body {
-    background-color: var(--fondo);
+    background: url('../img/estrellas.svg'), var(--fondo);
     font-family: var(--fuente);
     font-size: 1.6rem;
 }
 
+ 
 /* Globales */
 .contenedor {
     max-width: 200rem;
@@ -42,10 +41,19 @@ img {
 button {
     border: none;
 }
+
 button:active {
     border-style: none;
 }
-
+textarea {
+    background-color: transparent;
+    overflow-wrap: break-word;
+    resize: none;
+    border: none;
+    padding: 2rem;
+    width: 100%;
+    height: 50rem;
+}
 textarea,
 textarea::placeholder {
     color: var(--primario);
@@ -67,7 +75,7 @@ textarea:focus-visible {
     color: var(--primario);
 }
 
-.main__texto,
+
 .main__botones button:nth-child(1),
 .aside {
     background-color: var(--gris-claro);
@@ -84,6 +92,10 @@ textarea:focus-visible {
 .main__botones,
 .footer__redes {
     display: flex;
+}
+
+.d-none {
+    display: none;
 }
 
 /* Header */
@@ -114,26 +126,11 @@ textarea:focus-visible {
 @media (min-width: 992px) { 
     .main__ingresar {
         height: 66.9rem;
-        grid-column: 2 / 4;
+        grid-column: 1 / 3;
     }
 }
 .main__texto {
-    padding: 2rem;
-    width: 100%;
-    height: 50rem;
-    overflow-wrap: break-word;
-    resize: none;
-    border: none;
     border-radius: 3.2rem;
-}
-
-.main__mensaje-error {
-    display: none;
-    font-size: 1.5rem;
-    color: #971e1ef0;
-    border: .1rem solid #971e1ef0;
-    text-align: center;
-    padding: 1rem 0;
 }
 
 .main__acciones {
@@ -191,6 +188,7 @@ textarea:focus-visible {
 .aside {
     text-align: center;
     padding: 3rem;
+    border-radius: 3.2rem;
 }
 @media (min-width: 992px) { 
     .aside {
@@ -198,16 +196,8 @@ textarea:focus-visible {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        grid-column: 4 / 5;
-        border-radius: 3.2rem;
+        grid-column: 3 / 4;
     }
-}
-.aside__texto {
-    display: none;
-}
-
-.aside__img {
-    display: none;
 }
 @media (min-width: 992px) { 
     .aside__img {
@@ -219,6 +209,19 @@ textarea:focus-visible {
 }
 .aside h2 {
     margin-bottom: 1.6rem;
+}
+
+.aside__copiar {
+    height: 6.7rem;
+    width: 100%;
+    border-radius: 2.4rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    transition: .3s;
+}
+.aside__copiar:hover {
+    background-color: var(--fondo);
+    color: var(--primario);
 }
 
 /* Footer */

@@ -15,23 +15,25 @@
     <main class="main contenedor">
         <div class="main__ingresar">
             <textarea class="main__texto" id="mensaje" placeholder="Ingrese el texto aquí"></textarea>
-            <p class="main__mensaje-error">El mensaje no puede estar vacío, ni contener mayúsculas ni acentos.</p>
             <div class="main__acciones">
                 <p class="main__error">Solo letras minúsculas y sin acentos</p>
                 <div class="main__botones">
-                    <button id="encriptar">Encriptar</button>
-                    <button disabled id="desencriptar">Desencriptar</button>
+                    <button class="main__boton" name="encriptar">Encriptar</button>
+                    <button class="main__boton" name="desencriptar">Desencriptar</button>
                 </div>
             </div>
         </div>
         
         <aside class="aside">
-            <p class="aside__texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita, itaque magnam sit eligendi aut.</p>
-            <div class="aside__img">
-                <img src="img/Muñeco.png" alt="Imagen de muñeco">
+            <textarea readonly class="aside__texto d-none"></textarea>
+            <div class="aside__info">
+                <div class="aside__img d-none">
+                    <img src="img/astro.png" alt="Imagen de muñeco">
+                </div>
+                <h2>Ningún mensaje fue encontrado</h2>
+                <p>Ingresa el texto que desees encriptar o desencriptar.</p>
             </div>
-            <h2>Ningún mensaje fue encontrado</h2>
-            <p>Ingresa el texto que desees encriptar o desencriptar.</p>   
+            <button id="copiar" class="aside__copiar d-none">Copiar</button>
        </aside>
     </main>
     
