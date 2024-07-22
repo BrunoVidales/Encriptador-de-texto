@@ -25,38 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funcion validar mensaje
     function validarMensaje(boton) {
-            const errorParrafo = document.querySelector('.main__error');
-            const img = document.querySelector('.aside__img img');
-            const titulo = asideInfo.querySelector('h2');
-            // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
-            let regex = /^[a-z0-9 ñ]*$/;
-            if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
-                img.src = 'img/astro2.png';
-                boton.setAttribute('disabled', 'true');
-                errorParrafo.textContent = 'Error: Solo letras minúsculas y sin acentos.';
-                errorParrafo.style.color = 'red';
-                titulo.textContent = 'Inténtalo de nuevo';
-                setTimeout(() => {
-                    errorParrafo.textContent = 'Solo letras minúsculas y sin acentos';
-                    errorParrafo.style.color = 'var(--primario)';
-                    boton.removeAttribute('disabled');
-                    img.src = 'img/astro.png';
-                    titulo.textContent = 'Ningún mensaje fue encontrado';
-                }, 3500);
-                return;
-            };
-            // Almaceno el mensaje
-            let mensajeGuardado = mensajeIngresado.value;
+        // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
+        let regex = /^[a-z0-9 ñ]*$/;
+        if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
+            errorMensaje('Error: Solo letras minúsculas y sin acentos.', 'img/astro2.png', '#ff2a2a');
+            setTimeout(() => {
+                removerErrorMensaje('Solo letras minúsculas y sin acentos', 'img/astro.png', 'var(--primario)');
+            }, 3500);
+            return;
+        };
+        // Almaceno el mensaje
+        let mensajeGuardado = mensajeIngresado.value;
 
-            // Limpio el textarea luego de encriptar el mensaje
-            mensajeIngresado.value = '';
-            
-            // Obtengo el mensaje en las funciones
-            if(boton.name === 'encriptar') {
-                encriptarMensaje(mensajeGuardado);
-                return;
-            }
-            desecriptarMensaje(mensajeGuardado);
+        // Limpio el textarea luego de encriptar el mensaje
+        mensajeIngresado.value = '';
+        
+        // Obtengo el mensaje en las funciones
+        if(boton.name === 'encriptar') {
+            encriptarMensaje(mensajeGuardado);
+            return;
+        }
+        desecriptarMensaje(mensajeGuardado);
     };
 
     // Funcion encriptar mensaje
@@ -109,4 +98,21 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
     
+    // Funcion error al ingresar texto
+    function errorMensaje(texto, src, color) {
+        const errorParrafo = document.querySelector('.main__error');
+        errorParrafo.textContent = texto;
+        errorParrafo.style.color = color;
+        const img = document.querySelector('.aside__img img');
+        img.src = src;
+    }
+
+    // Funcion para remover errorMensaje
+    function removerErrorMensaje(texto, src, color) {
+        const errorParrafo = document.querySelector('.main__error');
+        errorParrafo.textContent = texto;
+        errorParrafo.style.color = color;
+        const img = document.querySelector('.aside__img img');
+        img.src = src;
+    }
 });

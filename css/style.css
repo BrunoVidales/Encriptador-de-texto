@@ -16,7 +16,7 @@ html {
 :root {
     --primario: #F6F6F6;
     --fondo: #161616;
-    --gris-claro: #2C2C2C;   
+    --gris-claro: #2c2c2c85;   
     --fuente: "Inter", sans-serif;
 }
 
@@ -220,7 +220,7 @@ textarea:focus-visible {
     transition: .3s;
 }
 .aside__copiar:hover {
-    background-color: var(--fondo);
+    background-color: transparent;
     color: var(--primario);
 }
 
