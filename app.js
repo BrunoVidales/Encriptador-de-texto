@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
             let regex = /^[a-z0-9 ñ]*$/;
             if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
+                img.src = 'img/astro2.png';
                 boton.setAttribute('disabled', 'true');
                 errorParrafo.textContent = 'Error: Solo letras minúsculas y sin acentos.';
                 errorParrafo.style.color = 'red';
-                img.src = 'img/astro2.png';
                 titulo.textContent = 'Inténtalo de nuevo';
                 setTimeout(() => {
                     errorParrafo.textContent = 'Solo letras minúsculas y sin acentos';
