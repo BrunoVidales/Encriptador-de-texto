@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
         let regex = /^[a-z0-9 ñ]*$/;
         if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
-            errorMensaje('img/astro2.webp', 'Error: Solo letras minúsculas y sin acentos.', '#ff2a2a');
+            errorMensaje('Error: Solo letras minúsculas y sin acentos.', '#ff2a2a');
             setTimeout(() => {
-                removerErrorMensaje('img/astro.webp', 'Solo letras minúsculas y sin acentos', 'var(--primario)');
+                removerErrorMensaje('Solo letras minúsculas y sin acentos', 'var(--primario)');
             }, 3500);
             return;
         };
@@ -99,18 +99,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Funcion error al ingresar texto
-    function errorMensaje(src, texto, color) {
-        const img = document.querySelector('.aside__img img');
-        img.src = src;
+    function errorMensaje(texto, color) {
+        const imgUno = document.querySelector('.aside__img img:nth-child(1)');
+        const imgDos = document.querySelector('.aside__img img:nth-child(2)');
+        imgUno.classList.add('d-none');
+        imgDos.classList.remove('d-none');
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
         errorParrafo.style.color = color;
     }
 
     // Funcion para remover errorMensaje
-    function removerErrorMensaje(src, texto, color) {
-        const img = document.querySelector('.aside__img img');
-        img.src = src;
+    function removerErrorMensaje(texto, color) {
+        const imgUno = document.querySelector('.aside__img img:nth-child(1)');
+        const imgDos = document.querySelector('.aside__img img:nth-child(2)');
+        imgUno.classList.remove('d-none');
+        imgDos.classList.add('d-none');
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
         errorParrafo.style.color = color;
