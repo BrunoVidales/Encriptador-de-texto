@@ -21,6 +21,7 @@ html {
 }
 
 body {
+    height: 100vh;
     background: url('../img/estrellas.svg'), var(--fondo);
     font-family: var(--fuente);
     font-size: 1.6rem;
@@ -76,7 +77,7 @@ textarea:focus-visible {
 }
 
 
-.main__botones button:nth-child(1),
+.main__botones button,
 .aside {
     background-color: var(--gris-claro);
 }
@@ -172,16 +173,13 @@ textarea:focus-visible {
     border-radius: 2.4rem;
     font-size: 1.6rem;
     font-weight: 500;
+    background-color: transparent;
+    border: .1rem solid var(--gris-claro);
     transition: background-color .3s;
 }
 
-.main__botones button:nth-child(1):hover {
-    background-color: transparent;
-    border: .1rem solid var(--gris-claro);
-}
-.main__botones button:nth-child(2) {
-    background-color: transparent;
-    border: .1rem solid var(--gris-claro);
+.main__botones button:hover {
+    background-color: var(--gris-claro);
 }
 
 /* Aside */
@@ -218,9 +216,14 @@ textarea:focus-visible {
     font-size: 1.6rem;
     font-weight: 500;
     transition: .3s;
+    position: relative;
 }
-.aside__copiar:hover {
-    background-color: transparent;
+.aside__copiar-correcto::before {
+    content: 'Copiado en el portapapeles ✅';
+    font-size: 1.3rem;
+    position: absolute;
+    top: -40%;
+    left: 3%;
     color: var(--primario);
 }
 

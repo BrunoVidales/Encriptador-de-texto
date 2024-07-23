@@ -27,13 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function validarMensaje(boton) {
         // Comprobar si tiene acento, mayusculas el valor con expresiones regulares 
         let regex = /^[a-z0-9 ñ]*$/;
-        if(!regex.test(mensajeIngresado.value.trim()) || mensajeIngresado.value === '') {
-            errorMensaje('Error: Solo letras minúsculas y sin acentos.', '#ff2a2a');
+        if(!regex.test(mensajeIngresado.value.trim())) {
+            errorMensaje('Error: Solo letras minúsculas y sin acentos.');
             setTimeout(() => {
-                removerErrorMensaje('Solo letras minúsculas y sin acentos', 'var(--primario)');
+                removerErrorMensaje('Solo letras minúsculas y sin acentos');
             }, 3500);
             return;
         };
+
+        if(mensajeIngresado.value === '') {
+            errorMensaje('Error: Ingresa un mensaje válido');
+            setTimeout(() => {
+                removerErrorMensaje('Solo letras minúsculas y sin acentos');
+            }, 3500);
+            return;
+        }
+
         // Almaceno el mensaje
         let mensajeGuardado = mensajeIngresado.value;
 
@@ -92,6 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if(mensajeRecibido.value) {
                 await navigator.clipboard.writeText(mensajeRecibido.value);
+                botonCopiar.classList.add('aside__copiar-correcto');
+                limpiar();
+                setTimeout(() => {
+                    botonCopiar.classList.remove('aside__copiar-correcto');
+                }, 1500);
             };
         } catch (error) {
             console.log('el texto no pudo ser copiado');
@@ -99,24 +113,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Funcion error al ingresar texto
-    function errorMensaje(texto, color) {
+    function errorMensaje(texto) {
         const imgUno = document.querySelector('.aside__img img:nth-child(1)');
         const imgDos = document.querySelector('.aside__img img:nth-child(2)');
         imgUno.classList.add('d-none');
         imgDos.classList.remove('d-none');
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
-        errorParrafo.style.color = color;
+        errorParrafo.style.color = '#ff2a2a';
     }
 
     // Funcion para remover errorMensaje
-    function removerErrorMensaje(texto, color) {
+    function removerErrorMensaje(texto) {
         const imgUno = document.querySelector('.aside__img img:nth-child(1)');
         const imgDos = document.querySelector('.aside__img img:nth-child(2)');
         imgUno.classList.remove('d-none');
         imgDos.classList.add('d-none');
         const errorParrafo = document.querySelector('.main__error');
         errorParrafo.textContent = texto;
-        errorParrafo.style.color = color;
+        errorParrafo.style.color = 'var(--primario)';
+    }
+
+    // Funcion para limpiar una vez que se copie el mensaje
+    function limpiar() {
+        asideInfo.classList.remove('d-none');
+        mensajeRecibido.classList.add('d-none');
+        botonCopiar.classList.add('d-none');
     }
 });
