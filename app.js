@@ -102,9 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if(mensajeRecibido.value) {
                 await navigator.clipboard.writeText(mensajeRecibido.value);
                 botonCopiar.classList.add('aside__copiar-correcto');
-                limpiar();
                 setTimeout(() => {
                     botonCopiar.classList.remove('aside__copiar-correcto');
+                    limpiar();
                 }, 1500);
             };
         } catch (error) {
